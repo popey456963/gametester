@@ -9,9 +9,9 @@ var MongoClient = mongodb.MongoClient
 
 function connectToDatabase(url, callback) {
   MongoClient.connect(url, function(err, db) {
-    if (err) console.log("Unabled to connect to the mongoDB server.  Error:", err)
+    if (err) logger.error(l, "Unabled to connect to the mongoDB server.  Error: " + err)
     else {
-      console.log("Connection established to", url)
+      logger.success(l, "Connection established to " + url)
       callback(db)
     }
   })
@@ -22,8 +22,15 @@ function queryServer(server, callback) {
   server.host = host[0]
   server.port = parseInt(host[1])
   gamedig.query(server, function(state) {
-    if (state.error) console.log("Server is offline or inaccessible")
+    if (state.error) {
+      logger.warning(l, "Server is offline or inaccessible")
+      logger.warning(l, state.error)
+    }
     else {
+      if (state.query.type == "csgo") {
+        console.log(JSON.stringify(state))
+        console.log(gjor)
+      }
       callback(state)
     }
   })
@@ -33,11 +40,13 @@ function handleData(state, collection, callback, players, serverStats) {
   var names = []
 
   for (i = 0; i < state.players.length; i++) {
-    names.push(state.players[i].name)
-    addTime(state.players[i].name, state.query.address + ":" + state.query.port, players, serverStats)
+    if (state.players[i].name.indexOf("Unknown from ") == -1) {
+      names.push(state.players[i].name)
+      addTime(state.players[i].name, state.query.address + ":" + state.query.port, players, serverStats)
+    }
   }
 
-  console.log(state.name + ": " + names.length + " / " + state.maxplayers)
+  logger.log(l, state.name + ": " + names.length + " / " + state.maxplayers)
 
   data = {
     "name": state.name,
@@ -48,8 +57,8 @@ function handleData(state, collection, callback, players, serverStats) {
   }
 
   collection.insert(data, function(err, result) {
-    if (err) console.log(err)
-    // else console.log("Inserted Data")
+    if (err) logger.error(err)
+    // else logger.debug("Inserted Data")
   });
 }
 
@@ -68,18 +77,23 @@ function addServerToList(serverList, server, callback) {
 function addTime(playername, server, players, serverStats) {
   player = {
     name: playername,
+    server: server,
+    totalTime: 0,
     rawData: []
   }
+  player.totalTime
   players.insert(player, function(err, result) {
-    if (err) console.log(playername + " already exists")
-    players.update({name: playername}, { $push: { rawData: {timestamp: new Date(), time: config.refresh}}}, function(err, result) {
-      if (err) console.log(err)
-      // else console.log(result)
+    // if (err) logger.warning(playername + " already exists")
+    if (!err) logger.log(l, playername + " added to database")
+    players.update({name: playername}, { $push: { rawData: {timestamp: new Date(), time: config.refresh, server: server}}}, function(err, result) {
+      if (err) logger.error(l, err)
+      players.update({name: playername}, { $inc: {totalTime: config.refresh} })
+      // else logger.log(l, result)
     })
   })
 }
 
-function getPlayerTime(playername, players, callback) {
+function getPlayerTimeData(playername, players, callback) {
   var promise = players.find({name: playername}).sort({_id: 1}).toArray(function(err, result) {
     callback(result)
   })
@@ -93,23 +107,26 @@ connectToDatabase(config.url, function(db) {
   serverList.createIndex( { host: 1 }, { unique: true } )
   players.createIndex( { name: 1 }, { unique: true } )
 
-  getPlayerTime("Brand0n", players, function(value) {
+  getPlayerTimeData("jemoeder", players, function(value) {
     weekTime = 0
+    // console.log(JSON.stringify(value))
     for (i=0; i<value[0].rawData.length; i++) {
+      console.log(value[0].rawData[i].timestamp.getTime())
       if (value[0].rawData[i].timestamp > Date.now() - 7*24*60*60*1000) {
         weekTime += value[0].rawData[i].time
       }
     }
-    //console.log(JSON.stringify(value))
-    console.log(weekTime/1000 + " seconds")
+    //logger.log(l, JSON.stringify(value))
+    logger.log(l, "Playtime: " + parseInt(weekTime/1000/60) + " minutes")
+    logger.log(l, "Calc Playtime: " + parseInt(value[0].totalTime/1000/60) + " minutes")
   })
 
   /*addServerToList(serverList, {type: "teamspeak3", host: "ts.outbreak-community.com:9987"}, function(){ 
-    console.log("One Implemented.") 
+    logger.log(l, "One Implemented.") 
     addServerToList(serverList, {type: "teamspeak3", host: "steam-speak.com:9987"}, function(){ 
-      console.log("Two Implemented.") 
+      logger.log(l, "Two Implemented.") 
       collectServerList(serverList, function(servers) {
-        console.log(servers)
+        logger.log(l, servers)
       })
     })
   })*/

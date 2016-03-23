@@ -1,26 +1,230 @@
 <!doctype html>
-<html>
-  <head>
-    <title>Gametracker Alternative</title>
-  </head>
-  <body>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Game tracker thing</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+
+<body>
+
+    <style>
+        .layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type {
+            padding-right: 0;
+        }
+        
+        .card-wide.mdl-card {
+            width: 100%;
+            height: 333px;
+        }
+        
+        .card-wide > .mdl-card__title {
+            color: #fff;
+            height: 176px;
+        }
+        
+        .card-wide > .mdl-card__menu {
+            color: #fff;
+        }
+        
+        .first > .mdl-card__title {
+            background: url('http://i.imgur.com/oFI1Hyk.jpg') center / cover;
+        }
+        
+        .content > .mdl-card__title {
+            background: url('https://s-media-cache-ak0.pinimg.com/736x/c4/30/40/c4304020ba04dfc3ad212e94515fe1f4.jpg') center / cover;
+        }
+        
+        .form > .mdl-card__title {
+            background: url('http://www.e-xiste.com/wp-content/uploads/2014/11/material-design.jpg') center / cover;
+        }
+    </style>
+
+    <div class="layout-waterfall mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header mdl-layout__header--waterfall">
+            <!-- Top row, always visible -->
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title">Game Tracker</span>
+                <div class="mdl-layout-spacer"></div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+                  mdl-textfield--floating-label mdl-textfield--align-right">
+                    <label class="mdl-button mdl-js-button mdl-button--icon" for="waterfall-exp">
+                        <i class="material-icons">search</i>
+                    </label>
+                    <div class="mdl-textfield__expandable-holder">
+                        <input class="mdl-textfield__input" type="text" name="sample" id="waterfall-exp">
+                    </div>
+                </div>
+            </div>
+            <!-- Bottom row, not visible on scroll -->
+            <div class="mdl-layout__header-row">
+                <div class="mdl-layout-spacer"></div>
+                <!-- Navigation -->
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="">Link</a>
+                    <a class="mdl-navigation__link" href="">Link</a>
+                    <a class="mdl-navigation__link" href="">Link</a>
+                    <a class="mdl-navigation__link" href="">Link</a>
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">Game Tracker</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="">Link</a>
+                <a class="mdl-navigation__link" href="">Link</a>
+                <a class="mdl-navigation__link" href="">Link</a>
+                <a class="mdl-navigation__link" href="">Link</a>
+            </nav>
+        </div>
+        <main class="mdl-layout__content">
+            <div class="page-content">
+                <div class="mdl-grid">
+
+                    <div class="mdl-cell cdl-cell--2-col">
+                        <div class="card-wide mdl-card mdl-shadow--8dp first">
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text">Welcome to game tracker</h2>
+                            </div>
+                            <div class="mdl-card__supporting-text">
+                                This is a card that introduces the site. This is a card that introduces the site. This is a card that introduces the site. This is a card that introduces the site. This is a card that introduces the site. This is a card that introduces the site.
+                            </div>
+                            <div class="mdl-card__actions mdl-card--border">
+                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+      Get Started
+    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="mdl-cell cdl-cell--2-col">
+                        <div class="card-wide mdl-card mdl-shadow--8dp content">
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text">Default Content</h2>
+                            </div>
+                            <div class="mdl-card__supporting-text">
+                                This is default content. This is default content. This is default content. This is default content. This is default content. This is default content. This is default content. This is default content. This is default content. This is default content.
+                            </div>
+                            <div class="mdl-card__actions mdl-card--border">
+                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+      Do some stuff
+    </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-cell cdl-cell--2-col">
+                        <form action="#">
+                            <div class="card-wide mdl-card mdl-shadow--8dp form">
+                                <div class="mdl-card__title">
+                                    <h2 class="mdl-card__title-text">The form</h2>
+                                </div>
+                                <div class="mdl-card__supporting-text">
+                                    <div class="mdl-textfield mdl-js-textfield">
+                                        <input id="m" class="mdl-textfield__input" type="text" id="sample1">
+                                        <label class="mdl-textfield__label" for="sample1">Text...</label>
+                                    </div>
+                                </div>
+                                <div class="mdl-card__actions mdl-card--border">
+                                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect">Send</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br /> This is for testing the title bar
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+
+            </div>
+        </main>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="//code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+    <script defer src="//code.getmdl.io/1.1.3/material.min.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
     <script>
-      var socket = io();
-      $('form').submit(function(){
-        socket.emit('player request', $('#m').val(), function(data) {
-          console.log(data)
+        var socket = io();
+        $('form').submit(function () {
+            socket.emit('player request', $('#m').val(), function (data) {
+                console.log(data)
+            });
+            $('#m').val('');
+            return false;
         });
-        $('#m').val('');
-        return false;
-      });
-      socket.on('player data', function(msg){
-        console.log("Received: " + JSON.stringify(msg))
-      });
+        socket.on('player data', function (msg) {
+            console.log("Received: " + JSON.stringify(msg))
+        });
     </script>
-  </body>
+</body>
+
 </html>

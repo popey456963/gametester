@@ -20,6 +20,8 @@ config.serverList = 'servers'
 config.playerCollection = 'player'
 config.serverStats = 'serverstats'
 
-config.refresh = 6000
+config.gatherData = true
+
+config.refresh = 30000
 
 module.exports = config

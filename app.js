@@ -6,6 +6,10 @@ var mongodb = require('mongodb')
 var q = require('q')
 var MongoClient = mongodb.MongoClient
 
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
 function connectToDatabase(url, callback) {
   MongoClient.connect(url, function(err, db) {
     if (err) logger.error("Unabled to connect to the mongoDB server.  Error: " + err)
@@ -23,12 +27,9 @@ function queryServer(server, callback) {
   gamedig.query(server, function(state) {
     if (state.error) {
       logger.warning("Server is offline or inaccessible")
-      logger.warning(state.error)
+      // logger.warning(state.error)
     }
     else {
-      if (state.query.type == "csgo") {
-        // logger.log("We just tested a csgo server")
-      }
       callback(state)
     }
   })
@@ -61,7 +62,7 @@ function handleData(state, collection, callback, players, serverStats) {
 }
 
 function collectServerList(serverList, callback) {
-  var promise = serverList.find({}).sort({_id: 1}).toArray(function(err, result) {
+  serverList.find({}).sort({_id: 1}).toArray(function(err, result) {
     callback(result)
   })
 }
@@ -80,7 +81,6 @@ function addTime(playername, server, players, serverStats) {
     totalTime: 0,
     rawData: []
   }
-  player.totalTime
   players.insert(player, function(err, result) {
     // if (err) logger.warning(playername + " already exists")
     if (!err) logger.log(playername + " added to database")
@@ -99,16 +99,9 @@ function getPlayerTimeData(playername, players, callback) {
   })
 }
 
-connectToDatabase(config.url, function(db) {
-  var serverList = db.collection(config.serverList)
-  var data = db.collection(config.dataCollection)
-  var players = db.collection(config.playerCollection)
-  var serverStats = db.collection(config.serverStats)
-  serverList.createIndex( { host: 1 }, { unique: true } )
-  players.createIndex( { name: 1 }, { unique: true } )
-
+function getPlayerTime(playername, players, callback) {
   try {
-    getPlayerTimeData("Cereal", players, function(value) {
+    getPlayerTimeData(playername, players, function(value) {
       weekTime = 0
       totalTime = 0
       if (value[0]) {
@@ -129,10 +122,23 @@ connectToDatabase(config.url, function(db) {
       //logger.log(JSON.stringify(value))
       logger.log("Week Playtime: " + parseInt(weekTime/1000/60) + " minutes")
       logger.log("Total Playtime: " + parseInt(totalTime/1000/60) + " minutes")
+      callback({
+        weekTime: weekTime,
+        totalTime: totalTime
+      })
     })
   } catch(e) {
     console.log("Player Data Not Found (Or Another Error): " + e)
   }
+}
+
+connectToDatabase(config.url, function(db) {
+  var serverList = db.collection(config.serverList)
+  var data = db.collection(config.dataCollection)
+  var players = db.collection(config.playerCollection)
+  var serverStats = db.collection(config.serverStats)
+  serverList.createIndex( { host: 1 }, { unique: true } )
+  players.createIndex( { name: 1 }, { unique: true } )
 
   /*addServerToList(serverList, {type: "teamspeak3", host: "ts.outbreak-community.com:9987"}, function(){ 
     logger.log("One Implemented.") 
@@ -145,13 +151,34 @@ connectToDatabase(config.url, function(db) {
   })*/
   // addServerToList(serverList, {type: "csgo", host: "jb.join-ob.com:27015"}, function(){})
 
-  setInterval(function() {
-    collectServerList(serverList, function(servers) {
-      for (j = 0; j < servers.length; j++) {
-        queryServer(servers[j], function(state) {
-          handleData(state, data, function() {}, players, serverStats)
-        })
-      }
-    })
-  }, config.refresh)
+  if (config.gatherData) {
+    setInterval(function() {
+      collectServerList(serverList, function(servers) {
+        for (j = 0; j < servers.length; j++) {
+          queryServer(servers[j], function(state) {
+            handleData(state, data, function() {}, players, serverStats)
+          })
+        }
+      })
+    }, config.refresh)
+  }
+  io.on('connection', function(socket){
+    socket.on('player request', function(msg, callback){
+      getPlayerTime(msg, players, function(data){
+        callback(data)
+      })
+    });
+  });
 })
+
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/pages/index.html');
+});
+
+app.get('/hours', function(req, res){
+  res.sendFile(__dirname + '/pages/hours.html');
+});
+
+http.listen(config.port, function(){
+  logger.log('Listening on *:' + String(config.port));
+});

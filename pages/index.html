@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Gametracker Alternative</title>
+  </head>
+  <body>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      var socket = io();
+      $('form').submit(function(){
+        socket.emit('player request', $('#m').val(), function(data) {
+          console.log(data)
+        });
+        $('#m').val('');
+        return false;
+      });
+      socket.on('player data', function(msg){
+        console.log("Received: " + JSON.stringify(msg))
+      });
+    </script>
+  </body>
+</html>

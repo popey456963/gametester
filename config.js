@@ -22,6 +22,6 @@ config.serverStats = 'serverstats'
 
 config.gatherData = true
 
-config.refresh = 30000
+config.refresh = 15
 
 module.exports = config

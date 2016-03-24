@@ -14,15 +14,15 @@
 
 
 
-    <div class="layout-transparent mdl-layout mdl-js-layout">
-        <header class="mdl-layout__header mdl-layout__header--transparent">
+    <div class="layout-transparent mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header mdl-layout__header--transparent mdl-layout__header--waterfall ">
             <div class="mdl-layout__header-row">
                 <!-- Title -->
                 <span class="mdl-layout-title">Title</span>
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
                 <!-- Navigation -->
-                <nav class="mdl-navigation">
+                <nav class="mdl-navigation mdl-layout--large-screen-only">
                     <a class="mdl-navigation__link" href="">Link</a>
                     <a class="mdl-navigation__link" href="">Link</a>
                     <a class="mdl-navigation__link" href="">Link</a>
@@ -45,7 +45,7 @@
             <div class="page-content">
                 <div class="mdl-grid">
 
-                    <div class="mdl-cell mdl-cell--3-col">
+                    <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
                         <div class="card-wide mdl-card mdl-shadow--8dp first">
                             <div class="mdl-card__title">
                                 <h2 class="mdl-card__title-text">Welcome to game tracker</h2>
@@ -54,33 +54,29 @@
                                 This is a card that introduces the site. This is a card that introduces the site. This is a card that introduces the site. This is a card that introduces the site. This is a card that introduces the site.
                             </div>
                             <div class="mdl-card__actions mdl-card--border">
-                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-      Get Started
-    </a>
+                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Get Started</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="mdl-cell mdl-cell--6-col">
-                        <form action="#">
-                            <div class="card-wide mdl-card mdl-shadow--8dp form">
-                                <div class="mdl-card__title">
-                                    <h2 class="mdl-card__title-text">The form</h2>
-                                </div>
-                                <div class="mdl-card__supporting-text">
-                                    <div class="mdl-textfield mdl-js-textfield">
-                                        <input id="m" class="mdl-textfield__input" type="text" id="sample1">
-                                        <label class="mdl-textfield__label" for="sample1">Name</label>
-                                    </div>
-                                </div>
-                                <div class="mdl-card__actions mdl-card--border">
-                                    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Do some stuff</button>
-                                </div>
+                    <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+                        <div class="mdl-card mdl-card-order mdl-shadow--8dp card-wide">
+                            <div class="mdl-card__title">
+                                <h4 class="mdl-card__title-text">Form</h4>
                             </div>
-                        </form>
+                            <div class="mdl-card__supporting-text mdl-grid">
+                                <form action="#">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--12-col">
+                                        <input id="m" class="mdl-textfield__input" type="text" id="cardholder" placeholder="Player Name" />
+                                        <label class="mdl-textfield__label" for="cardholder">Player Name</label>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
 
                     </div>
-                    <div class="mdl-cell mdl-cell--3-col">
+                    <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
                         <div class="card-wide mdl-card mdl-shadow--8dp content">
                             <div class="mdl-card__title">
                                 <h2 class="mdl-card__title-text">Default Content</h2>
@@ -94,11 +90,146 @@
                         </div>
                     </div>
 
+                    <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+                        <div class="card-wide mdl-card mdl-shadow--8dp first">
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text">Welcome to game tracker</h2>
+                            </div>
+                            <div class="mdl-card__supporting-text">
+                                This is a card that introduces the site. This is a card that introduces the site. This is a card that introduces the site. This is a card that introduces the site. This is a card that introduces the site.
+                            </div>
+                            <div class="mdl-card__actions mdl-card--border">
+                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Get Started</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+                        <div class="mdl-card mdl-card-order mdl-shadow--8dp card-wide">
+                            <div class="mdl-card__title">
+                                <h4 class="mdl-card__title-text">Form</h4>
+                            </div>
+                            <div class="mdl-card__supporting-text mdl-grid">
+                                <form action="#">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--12-col">
+                                        <input id="m" class="mdl-textfield__input" type="text" id="cardholder" placeholder="Player Name" />
+                                        <label class="mdl-textfield__label" for="cardholder">Player Name</label>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+                        <div class="card-wide mdl-card mdl-shadow--8dp content">
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text">Default Content</h2>
+                            </div>
+                            <div class="mdl-card__supporting-text">
+                                This is default content. This is default content. This is default content. This is default content. This is default content. This is default content. This is default content. This is default content. This is default content. This is default content.
+                            </div>
+                            <div class="mdl-card__actions mdl-card--border">
+                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Do some stuff</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+                        <div class="mdl-card mdl-card-order mdl-shadow--8dp card-wide">
+                            <div class="mdl-card__title">
+                                <h4 class="mdl-card__title-text">Form</h4>
+                            </div>
+                            <div class="mdl-card__supporting-text mdl-grid">
+                                <form action="#">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--12-col">
+                                        <input id="m" class="mdl-textfield__input" type="text" id="cardholder" placeholder="Player Name" />
+                                        <label class="mdl-textfield__label" for="cardholder">Player Name</label>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+                        <div class="card-wide mdl-card mdl-shadow--8dp content">
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text">Default Content</h2>
+                            </div>
+                            <div class="mdl-card__supporting-text">
+                                This is default content. This is default content. This is default content. This is default content. This is default content. This is default content. This is default content. This is default content. This is default content. This is default content.
+                            </div>
+                            <div class="mdl-card__actions mdl-card--border">
+                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Do some stuff</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+                        <div class="card-wide mdl-card mdl-shadow--8dp first">
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text">Welcome to game tracker</h2>
+                            </div>
+                            <div class="mdl-card__supporting-text">
+                                This is a card that introduces the site. This is a card that introduces the site. This is a card that introduces the site. This is a card that introduces the site. This is a card that introduces the site.
+                            </div>
+                            <div class="mdl-card__actions mdl-card--border">
+                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Get Started</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+                        <div class="card-wide mdl-card mdl-shadow--8dp content">
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text">Default Content</h2>
+                            </div>
+                            <div class="mdl-card__supporting-text">
+                                This is default content. This is default content. This is default content. This is default content. This is default content. This is default content. This is default content. This is default content. This is default content. This is default content.
+                            </div>
+                            <div class="mdl-card__actions mdl-card--border">
+                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Do some stuff</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+                        <div class="mdl-card mdl-card-order mdl-shadow--8dp card-wide">
+                            <div class="mdl-card__title">
+                                <h4 class="mdl-card__title-text">Form</h4>
+                            </div>
+                            <div class="mdl-card__supporting-text mdl-grid">
+                                <form action="#">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--12-col">
+                                        <input id="m" class="mdl-textfield__input" type="text" id="cardholder" placeholder="Player Name" />
+                                        <label class="mdl-textfield__label" for="cardholder">Player Name</label>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+                        <div class="card-wide mdl-card mdl-shadow--8dp first">
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text">Welcome to game tracker</h2>
+                            </div>
+                            <div class="mdl-card__supporting-text">
+                                This is a card that introduces the site. This is a card that introduces the site. This is a card that introduces the site. This is a card that introduces the site. This is a card that introduces the site.
+                            </div>
+                            <div class="mdl-card__actions mdl-card--border">
+                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Get Started</a>
+                            </div>
+                        </div>
+                    </div>
+
+
 
                 </div>
 
 
             </div>
+
+
+
         </main>
     </div>
 
@@ -109,10 +240,6 @@
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 
     <style>
-        .layout-transparent {
-            background: url('http://i.imgur.com/ROekPYf.jpg') center / cover;
-        }
-        
         .layout-transparent .mdl-layout__header,
         .layout-transparent .mdl-layout__drawer-button {
             color: white;
@@ -140,12 +267,28 @@
             background: url('https://s-media-cache-ak0.pinimg.com/736x/c4/30/40/c4304020ba04dfc3ad212e94515fe1f4.jpg') center / cover;
         }
         
-        .form > .mdl-card__title {
-            background: url('http://www.e-xiste.com/wp-content/uploads/2014/11/material-design.jpg') center / cover;
+        .form {
+            flex: none;
+            height: 100%;
         }
         
         .mdl-card__supporting-text {
             height: 90px;
+        }
+        
+        .mdl-card-order > .mdl-card__title {
+            color: #fff;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            background: #3F51B5;
+            /* 
+  background: #3F51B5 url("images/mastercard.jpg") center;
+  background-size: cover; 
+  */
+        }
+        
+        .layout-transparent {
+            background: url('http://i.imgur.com/ROekPYf.jpg') center / cover;
         }
     </style>
 

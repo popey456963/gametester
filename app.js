@@ -185,36 +185,9 @@ function getPlayerTimeData(playername, players, callback) {
 }
 
 function getPlayerTime(playername, players, callback) {
-  try {
-    getPlayerTimeData(playername, players, function(value) {
-      weekTime = 0
-      totalTime = 0
-      if (value[0]) {
-        if (value[0].rawData) {
-          if (value[0].rawData.length) {
-            // console.log(JSON.stringify(value))
-            for (i=0; i<value[0].rawData.length; i++) {
-              if (value[0].rawData[i].timestamp.getTime() > Date.now() - 7*24*60*60*1000) {
-                weekTime += value[0].rawData[i].time
-              }
-            }
-          }
-        }
-        if (value[0].totalTime) {
-          totalTime = value[0].totalTime
-        }
-      }
-      //logger.log(JSON.stringify(value))
-      logger.log("Week Playtime: " + parseInt(weekTime/1000/60) + " minutes")
-      logger.log("Total Playtime: " + parseInt(totalTime/1000/60) + " minutes")
-      callback({
-        weekTime: weekTime,
-        totalTime: totalTime
-      })
-    })
-  } catch(e) {
-    console.log("Player Data Not Found (Or Another Error): " + e)
-  }
+  getPlayerTimeData(playername, players, function(value) {
+    callback(value[0])
+  })
 }
 
 connectToDatabase(config.url, function(db) {

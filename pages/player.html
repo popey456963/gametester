@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Player :: Gametester</title>
+  </head>
+  <body>
+    <div id="main"></div>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      var request = unescape(document.location.pathname).split("/")
+      request.shift()
+      console.log(request)
+      var socket = io();
+      socket.emit('player request', request[1], function(data) {
+        console.log(data)
+        $('#main').append(JSON.stringify(data))
+      });
+    </script>
+  </body>
+</html>

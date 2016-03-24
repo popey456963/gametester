@@ -9,7 +9,8 @@ var MongoClient = mongodb.MongoClient
 var saveData = {}
 var games = ["csgo"]
 
-var app = require('express')();
+var express = require('express')
+var app = express()
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
@@ -168,7 +169,7 @@ function addTime(playername, server, players, serverStats) {
 } */
 
 function incServer(serverStats, state, playerName) {
-  console.log(state)
+  // console.log(state)
   serverStats.find({ip: state.query.address + ":" + state.query.port}).toArray(function (err, result) {
     if (err) {
       logger.log(err);
@@ -234,13 +235,19 @@ connectToDatabase(config.url, function(db) {
   });
 })
 
+app.use(express.static('public'));
+
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/pages/index.html');
+  res.sendFile(__dirname + '/pages/index.html')
 });
 
-app.get('/hours', function(req, res){
-  res.sendFile(__dirname + '/pages/hours.html');
-});
+app.get('/player/:name', function(req, res) {
+  res.sendFile(__dirname + '/pages/player.html')
+})
+
+app.get('/server/:name', function(req, res) {
+  res.sendFile(__dirname + '/pages/server.html')
+})
 
 http.listen(config.port, function(){
   logger.log('Listening on *:' + String(config.port));

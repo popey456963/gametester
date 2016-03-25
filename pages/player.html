@@ -2,11 +2,17 @@
 <html>
   <head>
     <title>Player :: Gametester</title>
+    <link rel="stylesheet" type="text/css" href="../css/chartist.css">
+    <style>
+      
+    </style>
   </head>
   <body>
+    <div class="lastWeek"></div>
     <div id="main"></div>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="../js/chartist.js"></script>
     <script>
       var request = unescape(document.location.pathname).split("/")
       request.shift()
@@ -15,6 +21,21 @@
       socket.emit('player request', request[1], function(data) {
         console.log(data)
         $('#main').append(JSON.stringify(data))
+      });
+    </script>
+    <script>
+      new Chartist.Bar('.lastWeek', {
+        labels: ['6d', '5d', '4d', '3d', '2d', '1d', 'Today'],
+        series: [
+          [5, 4, 3, 7, 5, 10, 3]
+        ]
+      }, {
+        axisX: {
+          position: 'start'
+        },
+        axisY: {
+          position: 'end'
+        }
       });
     </script>
   </body>

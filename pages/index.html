@@ -8,6 +8,10 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="//code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="../css/landing.css">
+    <link rel="stylesheet" href="../css/main.css">
 </head>
 
 <body>
@@ -18,20 +22,24 @@
         <header class="mdl-layout__header mdl-layout__header--transparent mdl-layout__header--waterfall ">
             <div class="mdl-layout__header-row">
                 <!-- Title -->
-                <span class="mdl-layout-title">Title</span>
+                <span class="mdl-layout-title">GameTester</span>
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
                 <!-- Navigation -->
                 <nav class="mdl-navigation mdl-layout--large-screen-only">
-                    <a class="mdl-navigation__link" href="">Link</a>
-                    <a class="mdl-navigation__link" href="">Link</a>
-                    <a class="mdl-navigation__link" href="">Link</a>
-                    <a class="mdl-navigation__link" href="">Link</a>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandablemdl-textfield--floating-label mdl-textfield--align-right">
+                        <label class="mdl-button mdl-js-button mdl-button--icon" for="waterfall-exp">
+                            <i class="material-icons">search</i>
+                        </label>
+                        <div class="mdl-textfield__expandable-holder">
+                            <input class="mdl-textfield__input" type="text" name="sample" id="waterfall-exp">
+                        </div>
+                    </div>
                 </nav>
             </div>
         </header>
         <div class="mdl-layout__drawer">
-            <span class="mdl-layout-title">Title</span>
+            <span class="mdl-layout-title">GameTester</span>
             <nav class="mdl-navigation">
                 <a class="mdl-navigation__link" href="">Link</a>
                 <a class="mdl-navigation__link" href="">Link</a>
@@ -234,63 +242,8 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="//code.getmdl.io/1.1.3/material.indigo-pink.min.css">
     <script defer src="//code.getmdl.io/1.1.3/material.min.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-
-    <style>
-        .layout-transparent .mdl-layout__header,
-        .layout-transparent .mdl-layout__drawer-button {
-            color: white;
-        }
-        
-        .card-wide.mdl-card {
-            width: 100%;
-            height: 333px;
-        }
-        
-        .card-wide > .mdl-card__title {
-            color: #fff;
-            height: 176px;
-        }
-        
-        .card-wide > .mdl-card__menu {
-            color: #fff;
-        }
-        
-        .first > .mdl-card__title {
-            background: url('http://i.imgur.com/oFI1Hyk.jpg') center / cover;
-        }
-        
-        .content > .mdl-card__title {
-            background: url('https://s-media-cache-ak0.pinimg.com/736x/c4/30/40/c4304020ba04dfc3ad212e94515fe1f4.jpg') center / cover;
-        }
-        
-        .form {
-            flex: none;
-            height: 100%;
-        }
-        
-        .mdl-card__supporting-text {
-            height: 90px;
-        }
-        
-        .mdl-card-order > .mdl-card__title {
-            color: #fff;
-            padding-top: 20px;
-            padding-bottom: 20px;
-            background: #3F51B5;
-            /* 
-  background: #3F51B5 url("images/mastercard.jpg") center;
-  background-size: cover; 
-  */
-        }
-        
-        .layout-transparent {
-            background: url('http://i.imgur.com/ROekPYf.jpg') center / cover;
-        }
-    </style>
 
 
     <script>

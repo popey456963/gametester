@@ -1,0 +1,8 @@
+ .layout-transparent .mdl-layout__header,
+ .layout-transparent .mdl-layout__drawer-button {
+     color: white;
+ }
+ 
+ .layout-transparent {
+     background: url('http://i.imgur.com/ROekPYf.jpg') center / cover;
+ }

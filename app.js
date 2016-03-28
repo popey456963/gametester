@@ -212,7 +212,7 @@ connectToDatabase(config.url, function(db) {
   serverList.createIndex( { host: 1 }, { unique: true } )
   players.createIndex( { name: 1 }, { unique: true } )
 
-  // addServerToList(serverList, {type: "csgo", host: "jb.join-ob.com:27015"}, function(){})
+  addServerToList(serverList, {type: "csgo", host: "151.80.47.69:27015"}, function(){})
 
   if (config.gatherData) {
     setInterval(function() {

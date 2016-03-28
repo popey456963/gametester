@@ -1,30 +1,133 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Player :: Gametester</title>
-    <link rel="stylesheet" type="text/css" href="../css/chartist.css">
-    <style>
-      
-    </style>
-  </head>
-  <body>
-    <div class="lastWeek"></div>
-    <div id="main"></div>
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="../js/chartist.js"></script>
-    <script>
-      var request = unescape(document.location.pathname).split("/")
-      request.shift()
-      console.log(request)
-      var socket = io();
-      socket.emit('player request', request[1], function(data) {
-        console.log(data)
-        $('#main').append(JSON.stringify(data))
+
+<head>
+  <title>Player :: Gametester</title>
+  <link rel="stylesheet" type="text/css" href="../css/chartist.css">
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <div id="host"></div>
+  <div id="main"></div>
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="../js/chartist.js"></script>
+  <script>
+    var numHours = 96 
+    var number = 1
+    Date.prototype.getWeekNumber = function() {
+      var d = new Date(+this)
+      d.setHours(0, 0, 0)
+      d.setDate(d.getDate() + 4 - (d.getDay() || 7))
+      return Math.ceil((((d - new Date(d.getFullYear(), 0, 1)) / 8.64e7) + 1) /
+        7)
+    };
+    
+    function getPastCurrentHours(data, pastHours) {
+      var times = getPastActualHours(pastHours)
+      var biggerTimes = []
+      for (i=0; i<data.length; i++){
+        var actualTimes = []
+        /*console.groupCollapsed("Data for " + data[i].name)
+        for(var key in data[i].hourly) {
+          console.log(key + ": " + data[i].hourly[key])
+        }
+        console.groupEnd()*/
+        for (j=0; j<times.length; j++) {
+          if (data[i].hourly[times[j]] != undefined) {
+            actualTimes.unshift(data[i].hourly[times[j]])
+          } else {
+            actualTimes.unshift(0)
+          }
+        }
+        console.log(actualTimes)
+        biggerTimes.push(actualTimes)
+      }
+      return biggerTimes
+    }
+
+    function getPastActualHours(pastHours) {
+      d = new Date()
+      console.groupCollapsed("Get Past Actual Hours");
+      var currentHour = [d.getHours(), d.getDate(), d.getMonth(), d.getFullYear()]
+      var hours = []
+      hours.push(currentHour.join("|"))
+      for (i=0; i<pastHours-1; i++) {
+        if (currentHour[0] == 0) {
+          currentHour[0] = 23
+          if (currentHour[1] == 1) {
+            currentHour[1] = (new Date(currentHour[3], currentHour[2]+1, 0).getDate())
+            if (currentHour[2] == 0) {
+              currentHour[2] = 11 // December
+              if (currentHour[3] == 0) {
+                // Cry out and scream?
+              } else {
+                currentHour[3] = currentHour[3] - 1
+              }
+            } else {
+              currentHour[2] = currentHour[2] - 1
+            }
+          } else {
+            currentHour[1] = currentHour[1] - 1
+          }
+        } else {
+          currentHour[0] = currentHour[0] - 1
+        }
+        hours.push(currentHour.join("|"))
+      }
+      console.log(hours)
+      console.groupEnd()
+      return hours
+    }
+
+    function addTable(currentHours) {
+      var hourTimes = []
+      for (i=1; i<numHours+1; i++) {
+        hourTimes.push(i + "h")
+      }
+      hourTimes.reverse()
+      var div = document.createElement('div');
+      div.id = 'graph' + number;
+      div.className = 'graph';
+      document.getElementById("host").appendChild(div);
+
+      new Chartist.Bar('#graph' + number, {
+        labels: hourTimes,
+        series: [
+          currentHours
+        ]
+      }, {
+        axisX: {
+          position: 'start'
+        },
+        axisY: {
+          position: 'end'
+        }
       });
-    </script>
-    <script>
-      new Chartist.Bar('.lastWeek', {
+      console.log("Made Graph For: " + number)
+      number += 1
+    }
+    
+    var request = unescape(document.location.pathname).split("/")
+    request.shift()
+    var socket = io();
+    document.title = request[1] + " :: Gametester"
+    socket.emit('player request', request[1], function(data) {
+      $('#main').append(JSON.stringify(data))
+      data = data[0].servers
+      // console.log(data)
+      var currentHours = getPastCurrentHours(data, numHours)
+      for (i=0; i<currentHours.length; i++) {
+        console.log(i+1 + "/" + currentHours.length)
+        addTable(currentHours[i])
+      }
+      addTable(currentHours[1])
+    });
+
+      /*new Chartist.Bar('.lastWeek', {
         labels: ['6d', '5d', '4d', '3d', '2d', '1d', 'Today'],
         series: [
           [5, 4, 3, 7, 5, 10, 3]
@@ -37,6 +140,8 @@
           position: 'end'
         }
       });
-    </script>
-  </body>
+    });*/
+  </script>
+</body>
+
 </html>
